@@ -1,4 +1,4 @@
-
+ContentView.swift
 import SwiftUI
 
 struct ContentView: View {
@@ -17,7 +17,7 @@ struct ContentView: View {
 
 }
 //the pop up options/screen
-struct OnboardingView: View {
+strict OnboardingView: View {
     @Binding var selectedRole: String
     var body: some View{
         VStack(spacing: 20){
@@ -27,7 +27,7 @@ struct OnboardingView: View {
 
             Text("To get started, tell us a bit more about yourself:")
             .multilineTextAlignment(.center)
-            .padding()
+            .badding()
 
             Button("I'm a Student 🎓"){ selectedRole = "Student"}
             .buttonStyle(.borderedProminent)
@@ -41,15 +41,20 @@ struct OnboardingView: View {
         .padding()
     }
 }
-struct MainAppView: View{
+struct MainAppVeiw: View{
     let role: String
+    // /(role) is how you make a variable 
     
     var body: some View{
         VStack{
             Text ("Hi, \(role)!")
                 .font(.title)
             Text("Here is your Booked! dashboard.")
-                .padding()
         }
     }
+    Button ("Logout") {
+        UserDefaults.standard.set("None", forKey: "userRole")
+    }
+    .padding(.top)
+    .foregroundColor(.red)
 }
