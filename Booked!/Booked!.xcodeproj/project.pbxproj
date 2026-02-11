@@ -6,17 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		81F262ED2F3CD48800E207A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262EA2F3CD48800E207A7 /* ContentView.swift */; };
+		81F262EE2F3CD48800E207A7 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262EB2F3CD48800E207A7 /* Enums.swift */; };
+		81F262EF2F3CD48800E207A7 /* Booked_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262E92F3CD48800E207A7 /* Booked_App.swift */; };
+		81F262F02F3CD48800E207A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81F262E82F3CD48800E207A7 /* Assets.xcassets */; };
+		81F262F52F3CD55700E207A7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262F42F3CD54A00E207A7 /* OnboardingView.swift */; };
+		81F262F72F3CD59C00E207A7 /* SplitSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262F62F3CD59600E207A7 /* SplitSelectionView.swift */; };
+		81F262F92F3CD5D400E207A7 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262F82F3CD5CD00E207A7 /* MainAppView.swift */; };
+		81F262FB2F3CD60300E207A7 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262FA2F3CD5FD00E207A7 /* DashboardItem.swift */; };
+		81F262FD2F3CD73100E207A7 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262FC2F3CD72800E207A7 /* CalendarView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		81157B8F2F2C2FFA00D98723 /* Booked!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booked!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81F262E82F3CD48800E207A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		81F262E92F3CD48800E207A7 /* Booked_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booked_App.swift; sourceTree = "<group>"; };
+		81F262EA2F3CD48800E207A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		81F262EB2F3CD48800E207A7 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		81F262F42F3CD54A00E207A7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		81F262F62F3CD59600E207A7 /* SplitSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitSelectionView.swift; sourceTree = "<group>"; };
+		81F262F82F3CD5CD00E207A7 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
+		81F262FA2F3CD5FD00E207A7 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
+		81F262FC2F3CD72800E207A7 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		81157B912F2C2FFA00D98723 /* Booked! */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Booked!";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		81157B8C2F2C2FFA00D98723 /* Frameworks */ = {
@@ -32,7 +45,7 @@
 		81157B862F2C2FFA00D98723 = {
 			isa = PBXGroup;
 			children = (
-				81157B912F2C2FFA00D98723 /* Booked! */,
+				81F262EC2F3CD48800E207A7 /* Booked! */,
 				81157B902F2C2FFA00D98723 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +56,46 @@
 				81157B8F2F2C2FFA00D98723 /* Booked!.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		81F262EC2F3CD48800E207A7 /* Booked! */ = {
+			isa = PBXGroup;
+			children = (
+				81F262F32F3CD52700E207A7 /* Logic */,
+				81F262F22F3CD51F00E207A7 /* Components */,
+				81F262F12F3CD50600E207A7 /* Screens */,
+				81F262E92F3CD48800E207A7 /* Booked_App.swift */,
+				81F262EA2F3CD48800E207A7 /* ContentView.swift */,
+				81F262E82F3CD48800E207A7 /* Assets.xcassets */,
+			);
+			path = "Booked!";
+			sourceTree = "<group>";
+		};
+		81F262F12F3CD50600E207A7 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				81F262FC2F3CD72800E207A7 /* CalendarView.swift */,
+				81F262F82F3CD5CD00E207A7 /* MainAppView.swift */,
+				81F262F62F3CD59600E207A7 /* SplitSelectionView.swift */,
+				81F262F42F3CD54A00E207A7 /* OnboardingView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		81F262F22F3CD51F00E207A7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				81F262FA2F3CD5FD00E207A7 /* DashboardItem.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		81F262F32F3CD52700E207A7 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				81F262EB2F3CD48800E207A7 /* Enums.swift */,
+			);
+			path = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +112,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				81157B912F2C2FFA00D98723 /* Booked! */,
 			);
 			name = "Booked!";
 			packageProductDependencies = (
@@ -109,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81F262F02F3CD48800E207A7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +170,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81F262ED2F3CD48800E207A7 /* ContentView.swift in Sources */,
+				81F262F92F3CD5D400E207A7 /* MainAppView.swift in Sources */,
+				81F262FD2F3CD73100E207A7 /* CalendarView.swift in Sources */,
+				81F262F52F3CD55700E207A7 /* OnboardingView.swift in Sources */,
+				81F262EE2F3CD48800E207A7 /* Enums.swift in Sources */,
+				81F262EF2F3CD48800E207A7 /* Booked_App.swift in Sources */,
+				81F262F72F3CD59C00E207A7 /* SplitSelectionView.swift in Sources */,
+				81F262FB2F3CD60300E207A7 /* DashboardItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
