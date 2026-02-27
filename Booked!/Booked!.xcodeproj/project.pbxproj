@@ -18,6 +18,14 @@
 		81F262F92F3CD5D400E207A7 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262F82F3CD5CD00E207A7 /* MainAppView.swift */; };
 		81F262FB2F3CD60300E207A7 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262FA2F3CD5FD00E207A7 /* DashboardItem.swift */; };
 		81F262FD2F3CD73100E207A7 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262FC2F3CD72800E207A7 /* CalendarView.swift */; };
+		81FECC322F50FFBE00C16518 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECC312F50FFB900C16518 /* NotesView.swift */; };
+		81FECC342F50FFC800C16518 /* To-DoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECC332F50FFC400C16518 /* To-DoView.swift */; };
+		81FECC362F5100A800C16518 /* ToDoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECC352F51009400C16518 /* ToDoCategory.swift */; };
+		81FECC392F52528F00C16518 /* GymView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECC382F52528C00C16518 /* GymView.swift */; };
+		81FECC3B2F5252D900C16518 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECC3A2F5252D900C16518 /* WorkoutDetailView.swift */; };
+		81FECC3D2F52532A00C16518 /* AddWorkoutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECC3C2F52531500C16518 /* AddWorkoutSheet.swift */; };
+		81FECC412F52591800C16518 /* NoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECC402F52591000C16518 /* NoteDetailView.swift */; };
+		81FECC432F52592D00C16518 /* AddNoteSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FECC422F52592900C16518 /* AddNoteSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +41,14 @@
 		81F262F82F3CD5CD00E207A7 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
 		81F262FA2F3CD5FD00E207A7 /* DashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
 		81F262FC2F3CD72800E207A7 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		81FECC312F50FFB900C16518 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		81FECC332F50FFC400C16518 /* To-DoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "To-DoView.swift"; sourceTree = "<group>"; };
+		81FECC352F51009400C16518 /* ToDoCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCategory.swift; sourceTree = "<group>"; };
+		81FECC382F52528C00C16518 /* GymView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymView.swift; sourceTree = "<group>"; };
+		81FECC3A2F5252D900C16518 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
+		81FECC3C2F52531500C16518 /* AddWorkoutSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutSheet.swift; sourceTree = "<group>"; };
+		81FECC402F52591000C16518 /* NoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailView.swift; sourceTree = "<group>"; };
+		81FECC422F52592900C16518 /* AddNoteSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +94,13 @@
 		81F262F12F3CD50600E207A7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				81FECC422F52592900C16518 /* AddNoteSheetView.swift */,
+				81FECC402F52591000C16518 /* NoteDetailView.swift */,
+				81FECC3C2F52531500C16518 /* AddWorkoutSheet.swift */,
+				81FECC3A2F5252D900C16518 /* WorkoutDetailView.swift */,
+				81FECC382F52528C00C16518 /* GymView.swift */,
+				81FECC332F50FFC400C16518 /* To-DoView.swift */,
+				81FECC312F50FFB900C16518 /* NotesView.swift */,
 				81F262FC2F3CD72800E207A7 /* CalendarView.swift */,
 				81F262F82F3CD5CD00E207A7 /* MainAppView.swift */,
 				81F262F62F3CD59600E207A7 /* SplitSelectionView.swift */,
@@ -98,6 +121,7 @@
 		81F262F32F3CD52700E207A7 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				81FECC352F51009400C16518 /* ToDoCategory.swift */,
 				81037DC52F3E8FE40096FB9B /* EventModel.swift */,
 				81F262EB2F3CD48800E207A7 /* Enums.swift */,
 			);
@@ -176,15 +200,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81FECC412F52591800C16518 /* NoteDetailView.swift in Sources */,
 				81F262ED2F3CD48800E207A7 /* ContentView.swift in Sources */,
+				81FECC3B2F5252D900C16518 /* WorkoutDetailView.swift in Sources */,
 				81037DC62F3E8FEA0096FB9B /* EventModel.swift in Sources */,
 				81F262F92F3CD5D400E207A7 /* MainAppView.swift in Sources */,
 				81F262FD2F3CD73100E207A7 /* CalendarView.swift in Sources */,
 				81F262F52F3CD55700E207A7 /* OnboardingView.swift in Sources */,
 				81F262EE2F3CD48800E207A7 /* Enums.swift in Sources */,
+				81FECC392F52528F00C16518 /* GymView.swift in Sources */,
+				81FECC322F50FFBE00C16518 /* NotesView.swift in Sources */,
 				81037DC82F3E90040096FB9B /* AddEventSheet.swift in Sources */,
+				81FECC342F50FFC800C16518 /* To-DoView.swift in Sources */,
+				81FECC432F52592D00C16518 /* AddNoteSheetView.swift in Sources */,
 				81F262EF2F3CD48800E207A7 /* Booked_App.swift in Sources */,
 				81F262F72F3CD59C00E207A7 /* SplitSelectionView.swift in Sources */,
+				81FECC3D2F52532A00C16518 /* AddWorkoutSheet.swift in Sources */,
+				81FECC362F5100A800C16518 /* ToDoCategory.swift in Sources */,
 				81F262FB2F3CD60300E207A7 /* DashboardItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
