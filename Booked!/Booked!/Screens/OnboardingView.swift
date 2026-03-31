@@ -15,7 +15,7 @@ struct OnboardingView: View {
             Button ("I'm working 💼"){ selectedRole = "Worker"}
             .buttonStyle(.borderedProminent)
 
-            Button("Neither😛") {selectedRole = "Human"}
+            Button("Neither") {selectedRole = "Human"}
             .buttonStyle(.bordered)
         }
         .padding()

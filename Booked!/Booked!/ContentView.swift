@@ -5,7 +5,7 @@ struct ContentView: View {
     @State private var activeMode: AppMode? = nil
 
     var body: some View {
-        // Use a Group
+        // User Group
         Group {
             if userRole == "None" {
                 OnboardingView(selectedRole: $userRole)

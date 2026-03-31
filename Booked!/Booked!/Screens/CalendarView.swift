@@ -52,37 +52,39 @@ struct CalendarView: View {
                                 Text("No events for this day").foregroundColor(.secondary)
                             } else {
                                 ForEach(filteredEvents){ event in
-                                    HStack{
-                                        Button(action: {
-                                            event.isCompleted.toggle()
-                                            if event.isCompleted{
-                                                showConfetti = true
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0){
-                                                    showConfetti = false
+                                    NavigationLink(destination: EditEventView(event: event)){
+                                        HStack{
+                                            Button(action: {
+                                                event.isCompleted.toggle()
+                                                if event.isCompleted{
+                                                    showConfetti = true
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0){
+                                                        showConfetti = false
+                                                    }
                                                 }
+                                            }) {
+                                                Image(systemName: event.isCompleted ? "checkmark.circle.fill" : "circle")
+                                                    .foregroundColor(event.isCompleted ? .green : mode.themeColor)
+                                                    .font(.title3)
                                             }
-                                        }) {
-                                            Image(systemName: event.isCompleted ? "checkmark.circle.fill" : "circle")
-                                                .foregroundColor(event.isCompleted ? .green : mode.themeColor)
-                                                .font(.title3)
+                                            .buttonStyle(.plain)
+                                            
+                                            VStack(alignment: .leading) {
+                                                Text(event.title)
+                                                    .font(.headline)
+                                                    .strikethrough(event.isCompleted)
+                                                    .foregroundColor(event.isCompleted ? .secondary : .primary)
+                                                Text(event.eventType)
+                                                    .font(.caption)
+                                                    .foregroundColor(.secondary)
+                                                Text(event.stateGroup).font(.caption).foregroundColor(.secondary)
+                                            }
+                                            Spacer()
+                                            Circle()
+                                                .fill(event.stateGroup == "School" ? Color.blue :
+                                                        event.stateGroup == "Work" ? Color.orange : Color.green)
+                                                .frame(width: 10, height: 10)
                                         }
-                                        .buttonStyle(.plain)
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(event.title)
-                                                .font(.headline)
-                                                .strikethrough(event.isCompleted)
-                                                .foregroundColor(event.isCompleted ? .secondary : .primary)
-                                            Text(event.eventType)
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                            Text(event.stateGroup).font(.caption).foregroundColor(.secondary)
-                                        }
-                                        Spacer()
-                                        Circle()
-                                            .fill(event.stateGroup == "School" ? Color.blue :
-                                                          event.stateGroup == "Work" ? Color.orange : Color.green)
-                                                    .frame(width: 10, height: 10)
                                     }
                                 }
                                 .onDelete(perform: deleteEvents)
@@ -167,7 +169,7 @@ struct CalendarWithDots: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UICalendarView, context: Context) {
-        // 1. Get the components for the date you just changed
+        //Get the components for the date you just changed
         let components = Calendar.current.dateComponents([.year, .month, .day], from: selectedDate)
         
         // 2. Tell the calendar to specifically reload that day (and any others if needed)
@@ -189,16 +191,15 @@ struct CalendarWithDots: UIViewRepresentable {
             let calendar = Calendar.current
             
             // Convert the dateComponents from the calendar into an actual Date object
-            // so we can accurately check the weekday
+            // to check the weekday
             guard let date = calendar.date(from: dateComponents) else { return nil }
             let weekday = calendar.component(.weekday, from: date)
 
             let hasEvent = parent.allEvents.contains { event in
-                // 1. Check for a direct date match (one-time events)
+                
                 let isSameDay = calendar.isDate(event.timestamp, inSameDayAs: date)
                 
-                // 2. Check for a repeating day match
-                // (This matches the 1-7 logic you used in AddEventSheet)
+               
                 let isRepeatDay = event.repeatDays.contains(weekday)
                 
                 return isSameDay || isRepeatDay

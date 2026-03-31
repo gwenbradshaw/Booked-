@@ -8,65 +8,100 @@
 import SwiftUI
 
 struct To_DoView: View {
-    @State private var categories = ["Groceries", "Gym"]
+    @AppStorage("todo_categories") private var categoriesString: String = "Groceries,Gym"
+    @State private var newCategoryName = ""
+
+    var categories: [String] {
+        categoriesString.components(separatedBy: ",").filter { !$0.isEmpty }
+    }
 
     var body: some View {
-    
-        List(categories, id: \.self) { category in
-            if category == "Gym" {
-                //  the tappable link for the Gym
-                NavigationLink(destination: GymView()) {
-                    Label("Gym", systemImage: "figure.run")
+        NavigationStack {
+            List {
+                ForEach(categories, id: \.self) { category in
+                    NavigationLink(destination: destinationView(for: category)) {
+                        Label(category, systemImage: getIcon(for: category))
+                    }
                 }
-            } else if category == "Groceries" {
-                // This creates the tappable link for Groceries
-                NavigationLink(destination: GroceryDetailView()) {
-                    Label("Groceries", systemImage: "cart")
+                .onDelete(perform: deleteCategory)
+
+                Section("Create New List") {
+                    HStack {
+                        TextField("List name...", text: $newCategoryName)
+                        Button(action: addCategory) {
+                            Image(systemName: "plus.circle.fill")
+                        }
+                        .disabled(newCategoryName.isEmpty)
+                    }
                 }
             }
+            .navigationTitle("To-do's")
+            .toolbar { EditButton() }
         }
-        .navigationTitle("To-do's")
+    }
+
+    @ViewBuilder
+    func destinationView(for name: String) -> some View {
+        if name == "Groceries" {
+            GroceryDetailView()
+        } else if name == "Gym" {
+            GymView()
+        } else {
+            UniversalListView(title: name)
+        }
+    }
+
+    func addCategory() {
+        let trimmed = newCategoryName.trimmingCharacters(in: .whitespaces)
+        if !trimmed.isEmpty && !categories.contains(trimmed) {
+            categoriesString += (categoriesString.isEmpty ? "" : ",") + trimmed
+            newCategoryName = ""
+        }
+    }
+
+    func deleteCategory(at offsets: IndexSet) {
+        var tempArray = categories
+        tempArray.remove(atOffsets: offsets)
+        categoriesString = tempArray.joined(separator: ",")
+    }
+
+    func getIcon(for name: String) -> String {
+        switch name.lowercased() {
+        case "groceries": return "cart"
+        case "gym": return "figure.run"
+        default: return "checklist"
+        }
     }
 }
 
+    // GROCERY VIEW
 struct GroceryDetailView: View {
- //premade lists
     @AppStorage("dairy_list") private var savedDairy: String = ""
     @AppStorage("meat_list") private var savedMeat: String = ""
     @AppStorage("produce_list") private var savedProduce: String = ""
     @AppStorage("snack_list") private var savedSnacks: String = ""
     @AppStorage("dessert_list") private var savedDesserts: String = ""
     
-   //make your own categories
     @AppStorage("custom_categories") private var customCategories: String = ""
-    @AppStorage("custom_items_storage") private var customItemsStorage: String = ""
-
     @State private var newCategoryName = ""
     @State private var checkedItems: Set<String> = []
-
-    // Temporary input text for standard sections
     @State private var newInputs: [String: String] = [:]
 
     var body: some View {
         List {
-            // Standard Sections
             grocerySection(title: "Dairy", savedString: $savedDairy)
             grocerySection(title: "Meat", savedString: $savedMeat)
             grocerySection(title: "Produce", savedString: $savedProduce)
             grocerySection(title: "Snacks", savedString: $savedSnacks)
             grocerySection(title: "Desserts", savedString: $savedDesserts)
 
-            // 3. NEW: Show Custom Categories created by the user
-            let categories = customCategories.components(separatedBy: ",").filter { !$0.isEmpty }
-            ForEach(categories, id: \.self) { catName in
+            let customCats = customCategories.components(separatedBy: ",").filter { !$0.isEmpty }
+            ForEach(customCats, id: \.self) { catName in
                 Section(catName) {
-                    Text("Ready for items...")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    Text("Ready for items...").font(.caption).foregroundStyle(.secondary)
                 }
             }
 
-            // 4. NEW: The "+" area to add a category you missed
             Section("Missing something?") {
                 HStack {
                     TextField("New category name...", text: $newCategoryName)
@@ -76,16 +111,14 @@ struct GroceryDetailView: View {
                             newCategoryName = ""
                         }
                     } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.blue)
+                        Image(systemName: "plus.circle.fill").foregroundColor(.blue)
                     }
                 }
             }
             
             Button("Clear All", role: .destructive) {
                 savedDairy = ""; savedMeat = ""; savedProduce = ""; savedSnacks = ""; savedDesserts = ""
-                customCategories = ""
-                checkedItems.removeAll()
+                customCategories = ""; checkedItems.removeAll()
             }
         }
         .navigationTitle("Groceries")
@@ -105,7 +138,6 @@ struct GroceryDetailView: View {
                     else { checkedItems.insert(item) }
                 }
             }
-            // Simple text input for the section
             TextField("Add to \(title)...", text: Binding(
                 get: { newInputs[title] ?? "" },
                 set: { newInputs[title] = $0 }
@@ -117,5 +149,50 @@ struct GroceryDetailView: View {
                 }
             }
         }
+    }
+}
+
+// VIEW FOR CUSTOM LISTS 
+struct UniversalListView: View {
+    let title: String
+    @AppStorage private var savedItems: String
+    @State private var newItemName = ""
+    @State private var checkedItems: Set<String> = []
+
+    init(title: String) {
+        self.title = title
+        self._savedItems = AppStorage(wrappedValue: "", "custom_list_\(title)")
+    }
+
+    var body: some View {
+        List {
+            let items = savedItems.components(separatedBy: ",").filter { !$0.isEmpty }
+            ForEach(items, id: \.self) { item in
+                HStack {
+                    Image(systemName: checkedItems.contains(item) ? "checkmark.circle.fill" : "circle")
+                    Text(item).strikethrough(checkedItems.contains(item))
+                }
+                .onTapGesture {
+                    if checkedItems.contains(item) { checkedItems.remove(item) }
+                    else { checkedItems.insert(item) }
+                }
+            }
+            .onDelete(perform: deleteItem)
+
+            TextField("Add to \(title)...", text: $newItemName)
+                .onSubmit {
+                    if !newItemName.isEmpty {
+                        savedItems += (savedItems.isEmpty ? "" : ",") + newItemName
+                        newItemName = ""
+                    }
+                }
+        }
+        .navigationTitle(title)
+    }
+
+    func deleteItem(at offsets: IndexSet) {
+        var items = savedItems.components(separatedBy: ",").filter { !$0.isEmpty }
+        items.remove(atOffsets: offsets)
+        savedItems = items.joined(separator: ",")
     }
 }

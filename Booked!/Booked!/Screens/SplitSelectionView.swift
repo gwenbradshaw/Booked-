@@ -1,4 +1,4 @@
-// new split screen
+// split screen
 
 import SwiftUI
 struct SplitSelectionView: View{
