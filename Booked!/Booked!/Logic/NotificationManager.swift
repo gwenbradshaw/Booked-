@@ -18,6 +18,12 @@ class NotificationManager {
             }
         }
     }
+        func cancelNotification(id: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+        
+        let repeatingIDs = (1...7).map { "\(id)-\($0)" }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: repeatingIDs)
+    }
     
     func scheduleNotification(title: String, date: Date, repeatDays: [Int], id: String, offsetMinutes: Int) {
         let content = UNMutableNotificationContent()

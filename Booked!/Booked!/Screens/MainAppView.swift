@@ -34,7 +34,7 @@ struct MainAppView: View {
                         .modifier(RectangleStyle(color: mode.themeColor))
                     }
  
-                    //Assignments/tasks
+               
 
                     // Assignments (School Only)
                     if mode == .school {
@@ -47,8 +47,19 @@ struct MainAppView: View {
                             .modifier(RectangleStyle(color: mode.themeColor))
                         }
                     }
+                    if mode == .personal{
+                        NavigationLink(destination: RecommendationsView()) {
+                            HStack{
+                                Image(systemName: "star.fill")
+                                Text("Recommendations")
+                                    .fontWeight(.bold)
+                            }
+                            .modifier(RectangleStyle(color: mode.themeColor))
+                        }
+                        
+                    }
 
-                    // Tasks (Work Only)
+                    // TASKS
                     else if mode == .work {
                         NavigationLink(destination: WorkDashboard()) {
                             HStack {
@@ -60,7 +71,7 @@ struct MainAppView: View {
                         }
                     }
 
-                    // 3. To-Do's (Visible in both)
+                    // TO-DO
                     NavigationLink(destination: To_DoView()) {
                         HStack {
                             Image(systemName: "checklist")
@@ -72,9 +83,8 @@ struct MainAppView: View {
                     
 
                     //EVENTS
-                    NavigationLink(destination: Text("Events Screen")) {
-                        HStack {
-                            Image(systemName: "sparkles") // "sparkles" or "calendar.badge.plus"
+                    NavigationLink(destination: EventsListView()) {                         HStack {
+                            Image(systemName: "sparkles")
                             Text("Events")
                                 .fontWeight(.bold)
                         }

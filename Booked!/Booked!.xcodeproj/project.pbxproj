@@ -14,6 +14,18 @@
 		8131BB4D2F7B49E8006F62D6 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8131BB4C2F7B49DF006F62D6 /* TaskModel.swift */; };
 		8131BB4F2F7B4C51006F62D6 /* SchoolClassDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8131BB4E2F7B4C4B006F62D6 /* SchoolClassDashboard.swift */; };
 		8131BB512F7B5006006F62D6 /* WorkDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8131BB502F7B5003006F62D6 /* WorkDashboard.swift */; };
+		8131BB532F7F1F25006F62D6 /* GymModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8131BB522F7F1F20006F62D6 /* GymModel.swift */; };
+		81476A432F8DC72C00650BFF /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81476A422F8DC72C00650BFF /* EventRow.swift */; };
+		81476A452F8DC91A00650BFF /* EventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81476A442F8DC91A00650BFF /* EventsListView.swift */; };
+		814DB0D82F84693800F941FA /* SetRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0D72F84692600F941FA /* SetRowView.swift */; };
+		814DB0DC2F84696300F941FA /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0DB2F84695F00F941FA /* ExerciseView.swift */; };
+		814DB0DE2F85820A00F941FA /* BrainDumpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0DD2F85820400F941FA /* BrainDumpView.swift */; };
+		814DB0E02F85823000F941FA /* DailyRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0DF2F85822B00F941FA /* DailyRoutineView.swift */; };
+		814DB0E22F85837C00F941FA /* GroceryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0E12F85837C00F941FA /* GroceryDetailView.swift */; };
+		814DB0E42F85838C00F941FA /* UniversalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0E32F85838C00F941FA /* UniversalListView.swift */; };
+		814DB0E62F85849600F941FA /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0E52F85847C00F941FA /* Recommendation.swift */; };
+		814DB0E82F8584A600F941FA /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0E72F8584A600F941FA /* RecommendationsView.swift */; };
+		814DB0EA2F8584B300F941FA /* AddRecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DB0E92F8584B300F941FA /* AddRecView.swift */; };
 		815AC2D22F69EF20003F7E73 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815AC2D12F69EF16003F7E73 /* NotificationManager.swift */; };
 		81F262ED2F3CD48800E207A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262EA2F3CD48800E207A7 /* ContentView.swift */; };
 		81F262EE2F3CD48800E207A7 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F262EB2F3CD48800E207A7 /* Enums.swift */; };
@@ -43,6 +55,18 @@
 		8131BB4C2F7B49DF006F62D6 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		8131BB4E2F7B4C4B006F62D6 /* SchoolClassDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolClassDashboard.swift; sourceTree = "<group>"; };
 		8131BB502F7B5003006F62D6 /* WorkDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDashboard.swift; sourceTree = "<group>"; };
+		8131BB522F7F1F20006F62D6 /* GymModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymModel.swift; sourceTree = "<group>"; };
+		81476A422F8DC72C00650BFF /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
+		81476A442F8DC91A00650BFF /* EventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListView.swift; sourceTree = "<group>"; };
+		814DB0D72F84692600F941FA /* SetRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRowView.swift; sourceTree = "<group>"; };
+		814DB0DB2F84695F00F941FA /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
+		814DB0DD2F85820400F941FA /* BrainDumpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainDumpView.swift; sourceTree = "<group>"; };
+		814DB0DF2F85822B00F941FA /* DailyRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRoutineView.swift; sourceTree = "<group>"; };
+		814DB0E12F85837C00F941FA /* GroceryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDetailView.swift; sourceTree = "<group>"; };
+		814DB0E32F85838C00F941FA /* UniversalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalListView.swift; sourceTree = "<group>"; };
+		814DB0E52F85847C00F941FA /* Recommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
+		814DB0E72F8584A600F941FA /* RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsView.swift; sourceTree = "<group>"; };
+		814DB0E92F8584B300F941FA /* AddRecView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecView.swift; sourceTree = "<group>"; };
 		815AC2D12F69EF16003F7E73 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		81F262E82F3CD48800E207A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81F262E92F3CD48800E207A7 /* Booked_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booked_App.swift; sourceTree = "<group>"; };
@@ -106,8 +130,10 @@
 		81F262F12F3CD50600E207A7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				81476A442F8DC91A00650BFF /* EventsListView.swift */,
+				81476A422F8DC72C00650BFF /* EventRow.swift */,
+				814DB0E72F8584A600F941FA /* RecommendationsView.swift */,
 				8131BB502F7B5003006F62D6 /* WorkDashboard.swift */,
-				8131BB4E2F7B4C4B006F62D6 /* SchoolClassDashboard.swift */,
 				8131BB482F7B4431006F62D6 /* TaskMatrixView.swift */,
 				8131BB422F75CFD0006F62D6 /* EditEventSheet.swift */,
 				81FECC422F52592900C16518 /* AddNoteSheetView.swift */,
@@ -128,8 +154,16 @@
 		81F262F22F3CD51F00E207A7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				814DB0E92F8584B300F941FA /* AddRecView.swift */,
+				814DB0DF2F85822B00F941FA /* DailyRoutineView.swift */,
+				814DB0E32F85838C00F941FA /* UniversalListView.swift */,
+				814DB0E12F85837C00F941FA /* GroceryDetailView.swift */,
+				814DB0DD2F85820400F941FA /* BrainDumpView.swift */,
 				81037DC72F3E8FFF0096FB9B /* AddEventSheet.swift */,
+				814DB0D72F84692600F941FA /* SetRowView.swift */,
+				814DB0DB2F84695F00F941FA /* ExerciseView.swift */,
 				81F262FA2F3CD5FD00E207A7 /* DashboardItem.swift */,
+				8131BB4E2F7B4C4B006F62D6 /* SchoolClassDashboard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -137,6 +171,8 @@
 		81F262F32F3CD52700E207A7 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				814DB0E52F85847C00F941FA /* Recommendation.swift */,
+				8131BB522F7F1F20006F62D6 /* GymModel.swift */,
 				8131BB4C2F7B49DF006F62D6 /* TaskModel.swift */,
 				815AC2D12F69EF16003F7E73 /* NotificationManager.swift */,
 				81FECC352F51009400C16518 /* ToDoCategory.swift */,
@@ -222,15 +258,22 @@
 				8131BB4F2F7B4C51006F62D6 /* SchoolClassDashboard.swift in Sources */,
 				81F262ED2F3CD48800E207A7 /* ContentView.swift in Sources */,
 				81FECC3B2F5252D900C16518 /* WorkoutDetailView.swift in Sources */,
+				814DB0E62F85849600F941FA /* Recommendation.swift in Sources */,
 				81037DC62F3E8FEA0096FB9B /* EventModel.swift in Sources */,
 				8131BB4D2F7B49E8006F62D6 /* TaskModel.swift in Sources */,
+				81476A452F8DC91A00650BFF /* EventsListView.swift in Sources */,
 				81F262F92F3CD5D400E207A7 /* MainAppView.swift in Sources */,
+				8131BB532F7F1F25006F62D6 /* GymModel.swift in Sources */,
 				81F262FD2F3CD73100E207A7 /* CalendarView.swift in Sources */,
+				814DB0E42F85838C00F941FA /* UniversalListView.swift in Sources */,
+				814DB0E02F85823000F941FA /* DailyRoutineView.swift in Sources */,
 				8131BB492F7B4444006F62D6 /* TaskMatrixView.swift in Sources */,
 				81F262F52F3CD55700E207A7 /* OnboardingView.swift in Sources */,
 				81F262EE2F3CD48800E207A7 /* Enums.swift in Sources */,
+				814DB0DC2F84696300F941FA /* ExerciseView.swift in Sources */,
 				8131BB432F75CFD6006F62D6 /* EditEventSheet.swift in Sources */,
 				81FECC392F52528F00C16518 /* GymView.swift in Sources */,
+				81476A432F8DC72C00650BFF /* EventRow.swift in Sources */,
 				81FECC322F50FFBE00C16518 /* NotesView.swift in Sources */,
 				81037DC82F3E90040096FB9B /* AddEventSheet.swift in Sources */,
 				81FECC342F50FFC800C16518 /* To-DoView.swift in Sources */,
@@ -238,10 +281,15 @@
 				8131BB512F7B5006006F62D6 /* WorkDashboard.swift in Sources */,
 				81F262EF2F3CD48800E207A7 /* Booked_App.swift in Sources */,
 				81F262F72F3CD59C00E207A7 /* SplitSelectionView.swift in Sources */,
+				814DB0EA2F8584B300F941FA /* AddRecView.swift in Sources */,
 				815AC2D22F69EF20003F7E73 /* NotificationManager.swift in Sources */,
 				81FECC3D2F52532A00C16518 /* AddWorkoutSheet.swift in Sources */,
 				81FECC362F5100A800C16518 /* ToDoCategory.swift in Sources */,
+				814DB0D82F84693800F941FA /* SetRowView.swift in Sources */,
 				81F262FB2F3CD60300E207A7 /* DashboardItem.swift in Sources */,
+				814DB0DE2F85820A00F941FA /* BrainDumpView.swift in Sources */,
+				814DB0E22F85837C00F941FA /* GroceryDetailView.swift in Sources */,
+				814DB0E82F8584A600F941FA /* RecommendationsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

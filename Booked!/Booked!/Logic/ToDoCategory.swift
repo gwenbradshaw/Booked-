@@ -5,8 +5,10 @@
 //  Created by gwen bradshaw on 2/26/26.
 //
 import SwiftUI
-struct TodoCategory: Identifiable, Hashable {
-    let id = UUID()
+
+// 1. The Model for your lists
+struct ToDoCategory: Identifiable, Codable {
+    var id = UUID()
     var name: String
-    var icon: String // names for categories
+    var template: ListTemplate
 }

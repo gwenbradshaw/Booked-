@@ -4,34 +4,85 @@
 //
 //  Created by gwen bradshaw on 2/26/26.
 //
-
 import SwiftUI
 
-struct To_DoView: View {
-    @AppStorage("todo_categories") private var categoriesString: String = "Groceries,Gym"
-    @State private var newCategoryName = ""
 
-    var categories: [String] {
-        categoriesString.components(separatedBy: ",").filter { !$0.isEmpty }
+// The Template Types
+enum ListTemplate: String, CaseIterable, Codable {
+    case blank = "Blank"
+    case groceries = "Groceries"
+    case gym = "Gym"
+    case brainDump = "Brain Dump"
+    case routine = "Daily Routine"
+    
+    var icon: String {
+        switch self {
+        case .blank: return "checklist"
+        case .groceries: return "cart.fill"
+        case .gym: return "figure.run"
+        case .brainDump: return "brain.head.profile"
+        case .routine: return "clock.fill"
+        }
+    }
+}
+
+struct To_DoView: View {
+    @AppStorage("todo_categories_v2") private var categoriesData: String = "[]"
+    @State private var newCategoryName = ""
+    @State private var selectedTemplate: ListTemplate = .blank
+
+
+    var categories: [ToDoCategory] {
+        guard let data = categoriesData.data(using: .utf8) else { return [] }
+        return (try? JSONDecoder().decode([ToDoCategory].self, from: data)) ?? []
     }
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(categories, id: \.self) { category in
-                    NavigationLink(destination: destinationView(for: category)) {
-                        Label(category, systemImage: getIcon(for: category))
+                // TEMPLATE GALLERY
+                Section("Choose a Template") {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 12) {
+                            ForEach(ListTemplate.allCases, id: \.self) { template in
+                                templateButton(template)
+                            }
+                        }
+                        .padding(.vertical, 8)
                     }
+                    .listRowBackground(Color.clear)
                 }
-                .onDelete(perform: deleteCategory)
 
-                Section("Create New List") {
+                // CREATE NEW LIST
+                Section {
                     HStack {
-                        TextField("List name...", text: $newCategoryName)
+                        TextField("Name your \(selectedTemplate.rawValue) list...", text: $newCategoryName)
+                            .textInputAutocapitalization(.words)
+                        
                         Button(action: addCategory) {
                             Image(systemName: "plus.circle.fill")
+                                .font(.title3)
+                                .foregroundColor(.purple)
                         }
-                        .disabled(newCategoryName.isEmpty)
+                        .disabled(newCategoryName.trimmingCharacters(in: .whitespaces).isEmpty)
+                    }
+                } header: {
+                    Text("Create New \(selectedTemplate.rawValue) List")
+                }
+
+                //SAVED LISTS
+                Section("My Lists") {
+                    if categories.isEmpty {
+                        Text("No lists yet. Pick a template above!")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    } else {
+                        ForEach(categories) { category in
+                            NavigationLink(destination: destinationView(for: category)) {
+                                Label(category.name, systemImage: category.template.icon)
+                            }
+                        }
+                        .onDelete(perform: deleteCategory)
                     }
                 }
             }
@@ -40,159 +91,69 @@ struct To_DoView: View {
         }
     }
 
+    // Subviews & Logic
+
     @ViewBuilder
-    func destinationView(for name: String) -> some View {
-        if name == "Groceries" {
+    func templateButton(_ template: ListTemplate) -> some View {
+        Button {
+            withAnimation(.spring()) { selectedTemplate = template }
+        } label: {
+            VStack(spacing: 8) {
+                Image(systemName: template.icon)
+                    .font(.system(size: 24))
+                Text(template.rawValue)
+                    .font(.system(size: 10, weight: .bold))
+            }
+            .frame(width: 85, height: 75)
+            .background(selectedTemplate == template ? Color.purple : Color.purple.opacity(0.1))
+            .foregroundColor(selectedTemplate == template ? .white : .purple)
+            .cornerRadius(15)
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.purple.opacity(0.2), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    func destinationView(for category: ToDoCategory) -> some View {
+        switch category.template {
+        case .groceries:
             GroceryDetailView()
-        } else if name == "Gym" {
+        case .gym:
             GymView()
-        } else {
-            UniversalListView(title: name)
+        case .brainDump:
+            BrainDumpView(title: category.name)
+        case .routine:
+            DailyRoutineView(title: category.name)
+        case .blank:
+            UniversalListView(title: category.name)
         }
     }
 
     func addCategory() {
-        let trimmed = newCategoryName.trimmingCharacters(in: .whitespaces)
-        if !trimmed.isEmpty && !categories.contains(trimmed) {
-            categoriesString += (categoriesString.isEmpty ? "" : ",") + trimmed
-            newCategoryName = ""
-        }
+        let trimmedName = newCategoryName.trimmingCharacters(in: .whitespaces)
+        var currentCategories = categories
+        let newCategory = ToDoCategory(name: trimmedName, template: selectedTemplate)
+        
+        currentCategories.append(newCategory)
+        save(currentCategories)
+        
+        // Reset inputs
+        newCategoryName = ""
+        selectedTemplate = .blank
     }
 
     func deleteCategory(at offsets: IndexSet) {
-        var tempArray = categories
-        tempArray.remove(atOffsets: offsets)
-        categoriesString = tempArray.joined(separator: ",")
+        var currentCategories = categories
+        currentCategories.remove(atOffsets: offsets)
+        save(currentCategories)
     }
 
-    func getIcon(for name: String) -> String {
-        switch name.lowercased() {
-        case "groceries": return "cart"
-        case "gym": return "figure.run"
-        default: return "checklist"
+    func save(_ list: [ToDoCategory]) {
+        if let data = try? JSONEncoder().encode(list) {
+            categoriesData = String(data: data, encoding: .utf8) ?? "[]"
         }
-    }
-}
-
-    // GROCERY VIEW
-struct GroceryDetailView: View {
-    @AppStorage("dairy_list") private var savedDairy: String = ""
-    @AppStorage("meat_list") private var savedMeat: String = ""
-    @AppStorage("produce_list") private var savedProduce: String = ""
-    @AppStorage("snack_list") private var savedSnacks: String = ""
-    @AppStorage("dessert_list") private var savedDesserts: String = ""
-    
-    @AppStorage("custom_categories") private var customCategories: String = ""
-    @State private var newCategoryName = ""
-    @State private var checkedItems: Set<String> = []
-    @State private var newInputs: [String: String] = [:]
-
-    var body: some View {
-        List {
-            grocerySection(title: "Dairy", savedString: $savedDairy)
-            grocerySection(title: "Meat", savedString: $savedMeat)
-            grocerySection(title: "Produce", savedString: $savedProduce)
-            grocerySection(title: "Snacks", savedString: $savedSnacks)
-            grocerySection(title: "Desserts", savedString: $savedDesserts)
-
-            let customCats = customCategories.components(separatedBy: ",").filter { !$0.isEmpty }
-            ForEach(customCats, id: \.self) { catName in
-                Section(catName) {
-                    Text("Ready for items...").font(.caption).foregroundStyle(.secondary)
-                }
-            }
-
-            Section("Missing something?") {
-                HStack {
-                    TextField("New category name...", text: $newCategoryName)
-                    Button {
-                        if !newCategoryName.isEmpty {
-                            customCategories += (customCategories.isEmpty ? "" : ",") + newCategoryName
-                            newCategoryName = ""
-                        }
-                    } label: {
-                        Image(systemName: "plus.circle.fill").foregroundColor(.blue)
-                    }
-                }
-            }
-            
-            Button("Clear All", role: .destructive) {
-                savedDairy = ""; savedMeat = ""; savedProduce = ""; savedSnacks = ""; savedDesserts = ""
-                customCategories = ""; checkedItems.removeAll()
-            }
-        }
-        .navigationTitle("Groceries")
-    }
-
-    @ViewBuilder
-    func grocerySection(title: String, savedString: Binding<String>) -> some View {
-        Section(title) {
-            let items = savedString.wrappedValue.components(separatedBy: ",").filter { !$0.isEmpty }
-            ForEach(items, id: \.self) { item in
-                HStack {
-                    Image(systemName: checkedItems.contains(item) ? "checkmark.circle.fill" : "circle")
-                    Text(item).strikethrough(checkedItems.contains(item))
-                }
-                .onTapGesture {
-                    if checkedItems.contains(item) { checkedItems.remove(item) }
-                    else { checkedItems.insert(item) }
-                }
-            }
-            TextField("Add to \(title)...", text: Binding(
-                get: { newInputs[title] ?? "" },
-                set: { newInputs[title] = $0 }
-            ))
-            .onSubmit {
-                if let val = newInputs[title], !val.isEmpty {
-                    savedString.wrappedValue += (savedString.wrappedValue.isEmpty ? "" : ",") + val
-                    newInputs[title] = ""
-                }
-            }
-        }
-    }
-}
-
-// VIEW FOR CUSTOM LISTS 
-struct UniversalListView: View {
-    let title: String
-    @AppStorage private var savedItems: String
-    @State private var newItemName = ""
-    @State private var checkedItems: Set<String> = []
-
-    init(title: String) {
-        self.title = title
-        self._savedItems = AppStorage(wrappedValue: "", "custom_list_\(title)")
-    }
-
-    var body: some View {
-        List {
-            let items = savedItems.components(separatedBy: ",").filter { !$0.isEmpty }
-            ForEach(items, id: \.self) { item in
-                HStack {
-                    Image(systemName: checkedItems.contains(item) ? "checkmark.circle.fill" : "circle")
-                    Text(item).strikethrough(checkedItems.contains(item))
-                }
-                .onTapGesture {
-                    if checkedItems.contains(item) { checkedItems.remove(item) }
-                    else { checkedItems.insert(item) }
-                }
-            }
-            .onDelete(perform: deleteItem)
-
-            TextField("Add to \(title)...", text: $newItemName)
-                .onSubmit {
-                    if !newItemName.isEmpty {
-                        savedItems += (savedItems.isEmpty ? "" : ",") + newItemName
-                        newItemName = ""
-                    }
-                }
-        }
-        .navigationTitle(title)
-    }
-
-    func deleteItem(at offsets: IndexSet) {
-        var items = savedItems.components(separatedBy: ",").filter { !$0.isEmpty }
-        items.remove(atOffsets: offsets)
-        savedItems = items.joined(separator: ",")
     }
 }

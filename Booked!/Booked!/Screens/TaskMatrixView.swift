@@ -5,6 +5,7 @@
 //  Created by gwen bradshaw on 3/30/26.
 //
 import SwiftUI
+
 import SwiftUI
 
 struct TaskMatrixView: View {
@@ -50,6 +51,8 @@ struct TaskMatrixView: View {
                     ForEach(active) { task in
                         taskRow(task)
                     }
+                    // Added delete for active tasks too, just in case
+                    .onDelete(perform: deleteActive)
                 }
 
                 Section("Completed") {
@@ -78,7 +81,10 @@ struct TaskMatrixView: View {
             }
         }
         .navigationTitle(specificClass ?? "Tasks")
-        .onAppear(perform: loadTasks)
+        .onAppear {
+            loadTasks()
+            NotificationManager.instance.requestPermission()
+        }
     }
 
     func taskRow(_ task: UniversalTask) -> some View {
@@ -105,11 +111,17 @@ struct TaskMatrixView: View {
         }
     }
 
+    //Logic Functions
+
     func completeTask(_ task: UniversalTask) {
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
             withAnimation {
                 tasks[index].isCompleted = true
                 showConfetti = true
+                
+                // Cancel notification when done
+                NotificationManager.instance.cancelNotification(id: task.id.uuidString)
+                
                 saveTasks()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     withAnimation { showConfetti = false }
@@ -121,15 +133,43 @@ struct TaskMatrixView: View {
     func addTask() {
         let newTask = UniversalTask(title: newTaskTitle, status: "Active", dueDate: selectedDate, className: specificClass ?? "", isCompleted: false)
         tasks.append(newTask)
+        
+        // SCHEDULE NOTIFICATION (7:00 AM on due date)
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+        components.hour = 7
+        components.minute = 0
+        
+        if let reminderDate = calendar.date(from: components) {
+            NotificationManager.instance.scheduleNotification(
+                title: "Reminder: \(newTaskTitle)",
+                date: reminderDate,
+                repeatDays: [],
+                id: newTask.id.uuidString,
+                offsetMinutes: 0
+            )
+        }
+        
         saveTasks()
         newTaskTitle = ""
+    }
+
+    func deleteActive(at offsets: IndexSet) {
+        let active = tasks.filter { !$0.isCompleted && (specificClass == nil || $0.className == specificClass) }
+        for index in offsets {
+            let task = active[index]
+            NotificationManager.instance.cancelNotification(id: task.id.uuidString)
+            tasks.removeAll(where: { $0.id == task.id })
+        }
+        saveTasks()
     }
 
     func deleteCompleted(at offsets: IndexSet) {
         let completed = tasks.filter { $0.isCompleted && (specificClass == nil || $0.className == specificClass) }
         for index in offsets {
-            let id = completed[index].id
-            tasks.removeAll(where: { $0.id == id })
+            let task = completed[index]
+            NotificationManager.instance.cancelNotification(id: task.id.uuidString)
+            tasks.removeAll(where: { $0.id == task.id })
         }
         saveTasks()
     }

@@ -6,30 +6,54 @@
 //
 
 import SwiftUI
-
 struct WorkoutDetailView: View {
-    let workoutTitle: String
-    @AppStorage("workout_items_") private var allExercises: String = ""
-    @State private var newExercise = ""
+    let workout: Workout
+    @AppStorage("gym_workouts_json") private var workoutsData: String = "[]"
+    @State private var exercises: [Exercise] = []
+    @State private var isEditingLayout = false
 
     var body: some View {
-        List {
-            // Filter exercises that belong to this specific workout
-            let exerciseList = allExercises.components(separatedBy: "|").filter { $0.contains(workoutTitle) }
-            
-            ForEach(exerciseList, id: \.self) { item in
-                let cleanName = item.replacingOccurrences(of: "\(workoutTitle):", with: "")
-                Text(cleanName)
-            }
-            
-            TextField("Add exercise (e.g. 3x10 Squats)", text: $newExercise)
-                .onSubmit {
-                    if !newExercise.isEmpty {
-                        allExercises += (allExercises.isEmpty ? "" : "|") + "\(workoutTitle):\(newExercise)"
-                        newExercise = ""
-                    }
+        ScrollView {
+            VStack(spacing: 20) {
+                ForEach($exercises) { $exercise in
+                    ExerciseView(
+                        exercise: $exercise,
+                        isEditing: isEditingLayout,
+                        onDelete: { deleteExercise(exercise) },
+                        onSave: saveChanges
+                    )
+                    .padding(.horizontal)
                 }
+            }
+            .padding(.vertical)
         }
-        .navigationTitle(workoutTitle)
+        .navigationTitle(workout.title)
+        .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
+        .toolbar {
+            Button(isEditingLayout ? "Done" : "Edit") {
+                withAnimation { isEditingLayout.toggle() }
+            }
+        }
+        .onAppear { loadInitialData() }
+    }
+
+    func loadInitialData() {
+        let all = GymLogic.decodeWorkouts(workoutsData)
+        if let found = all.first(where: { $0.id == workout.id }) {
+            self.exercises = found.exercises
+        }
+    }
+
+    func deleteExercise(_ exercise: Exercise) {
+        exercises.removeAll { $0.id == exercise.id }
+        saveChanges()
+    }
+
+    func saveChanges() {
+        var allWorkouts = GymLogic.decodeWorkouts(workoutsData)
+        if let index = allWorkouts.firstIndex(where: { $0.id == workout.id }) {
+            allWorkouts[index].exercises = exercises
+            workoutsData = GymLogic.encodeWorkouts(allWorkouts)
+        }
     }
 }

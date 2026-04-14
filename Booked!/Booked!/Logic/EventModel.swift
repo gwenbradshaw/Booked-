@@ -18,20 +18,28 @@ final class CalendarEvent {
     var isCompleted: Bool = false
     var repeatDays: [Int] = []
     
-    init (title: String = "",
-        timestamp: Date = .now,
-        eventType: String = "Task",
-        stateGroup: String = "Personal",
-        isCompleted: Bool = false,
-        repeatDays: [Int] = []){
+    // Category for the "Special Events" logic
+    var categoryName: String?
+    var categoryColor: String?
+    
+    init(title: String = "",
+         timestamp: Date = .now,
+         eventType: String = "Task",
+         stateGroup: String = "Personal",
+         isCompleted: Bool = false,
+         repeatDays: [Int] = [],
+         categoryName: String? = nil,
+         categoryColor: String? = nil) {
+        
         self.title = title
         self.timestamp = timestamp
         self.eventType = eventType
         self.stateGroup = stateGroup
         self.isCompleted = isCompleted
         self.repeatDays = repeatDays
+        self.categoryName = categoryName
+        self.categoryColor = categoryColor
     }
-    
 }
 
     
