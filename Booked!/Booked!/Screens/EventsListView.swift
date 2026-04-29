@@ -12,15 +12,16 @@ import SwiftData
 struct EventsListView: View {
 
     @Query private var allEvents: [CalendarEvent]
-    
-    // Improved safe filtering
+
     var specialEvents: [CalendarEvent] {
         allEvents.filter { event in
+            let isValidCategory = event.categoryName != nil
+            let isSpecialState = ["Personal", "Work", "School"].contains(event.stateGroup)
             
-            event.categoryName != nil && event.stateGroup == "Personal"
-        }.sorted { $0.timestamp < $1.timestamp }
+            return isValidCategory && isSpecialState
+        }
+        .sorted { $0.timestamp < $1.timestamp }
     }
-
     var body: some View {
         ScrollView {
             VStack(spacing: 12) {
@@ -49,3 +50,4 @@ struct EventsListView: View {
         .background(Color(red: 0.98, green: 0.98, blue: 1.0).ignoresSafeArea())
     }
 }
+
