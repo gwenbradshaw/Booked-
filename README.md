@@ -44,41 +44,47 @@ SwiftData & AppStorage: Your data stays on your device—fast, private, and alwa
 
 SF Symbols: A clean, modern look that matches the iOS aesthetic.
 
-Consumer use: Installing via GitHub (Sideloading)
-If you aren't a developer but want to use Booked! on your device, you can "sideload" the app. This is a safe, wireless way to install custom apps using your own Apple ID.
+Consumer use:
+You will need a Mac with Xcode 26 and a USB cable.
 
-Step 1: Download the App File
-Go to the Releases tab of this GitHub repository.
+1. Clone the Project
+Open Terminal on your Mac and run:
 
-Download the latest file ending in .ipa (e.g., Booked_v1.0.ipa) directly to your iPhone.
+Bash
+git clone https://github.com/gwenbradshaw/Booked-
+Or, simply download the ZIP from this GitHub page and unzip it.
 
-Step 2: Set Up SideStore
-To keep the app running without a computer, we recommend using SideStore:
+2. Open in Xcode
+Double-click Booked!.xcodeproj to open the project.
 
-Follow the SideStore Installation Guide (requires a one-time setup with a PC or Mac).
+If Xcode asks to "Trust and Open," click Trust.
 
-Once SideStore is on your phone, open it and sign in with your Apple ID.
+3. Set Up Your Signing
+Because this code was written by me, you need to tell Xcode to run it under your identity:
 
-Step 3: Install Booked!
-In SideStore, go to the "My Apps" tab and tap the + icon in the top left.
+In the left sidebar, click the blue Booked! project icon at the very top.
 
-Select the Booked!.ipa file you downloaded from GitHub.
+Go to the Signing & Capabilities tab.
 
-The app will install and appear on your Home Screen!
+Under Team, click "Add Account" and sign in with your Apple ID.
 
-Step 4: Enable Developer Mode
-Since this is a custom app, iOS requires you to trust it:
+Change the Bundle Identifier to something unique (e.g., com.yourname.booked.app) so it doesn't clash with my version.
 
-Go to Settings > Privacy & Security > Developer Mode and toggle it On. (Your phone will restart).
+4. Run on Your iPhone
+Connect your iPhone to your Mac via cable.
+
+In the top toolbar of Xcode, click the "Device" menu and select your physical iPhone.
+
+Press the Play (Run) button (or Cmd + R).
+
+On your iPhone:
+
+Go to Settings > Privacy & Security > Developer Mode and turn it On (requires a restart).
 
 Go to Settings > General > VPN & Device Management, tap your Apple ID, and select "Trust".
 
-⚠️ Important Note on the "7-Day Rule"
-Because this app is self-signed using a free Apple ID, it will expire every 7 days.
-
-SideStore will attempt to refresh the app automatically over Wi-Fi.
-
-Simply ensure your phone is connected to Wi-Fi at least once a week to keep Booked! active.
+⚠️ The Only Rule
+Since you are using a free Apple ID, the app will expire every 7 days. When it stops opening, just plug your phone back into your Mac and hit the Play button in Xcode again. Your data (workouts, groceries, etc.) will not be deleted when you do this!
 
 Developer Use: 
 Clone the Repo: git clone https://github.com/yourusername/booked.git
